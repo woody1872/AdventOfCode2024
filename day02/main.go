@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -61,4 +62,20 @@ func main() {
 		}
 	}
 	fmt.Println("Answer (part 1):", safeCount)
+
+	safeCount = 0
+	for _, report := range reports {
+		if safe(report) {
+			safeCount += 1
+			continue
+		}
+		for i := range report {
+			portion := slices.Delete(slices.Clone(report), i, i+1)
+			if safe(portion) {
+				safeCount += 1
+				break
+			}
+		}
+	}
+	fmt.Println("Answer (part 2):", safeCount)
 }
