@@ -41,4 +41,26 @@ func main() {
 		}
 	}
 	fmt.Println("Answer (part 1):", distance)
+
+	// Initialise a map[int]int containing nums in the left list
+	// and their frequency in the right list - defaulted to 0
+	var simScoreMap = make(map[int]int)
+	for _, n := range nl {
+		simScoreMap[n] = 0
+	}
+
+	// Count each time a num in the left list appears in the right
+	// list and update the map
+	for _, n := range nr {
+		if _, ok := simScoreMap[n]; ok {
+			simScoreMap[n] += 1
+		}
+	}
+
+	// Sum the num * freq
+	simScore := 0
+	for k, v := range simScoreMap {
+		simScore += k * v
+	}
+	fmt.Println("Answer (part 2):", simScore)
 }
